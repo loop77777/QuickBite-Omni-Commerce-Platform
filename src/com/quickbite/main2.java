@@ -31,22 +31,24 @@ import com.quickbite.service.ReportService;
 import com.quickbite.singleton.DatabaseConnection;
 import com.quickbite.strategy.Payment;
 
-public class QuickBiteApplication2 {
+public class main2 {
+    // Runs the same end-to-end scenario as Main, followed by additional API and exception examples.
     public static void main(String[]args) {
         System.out.println("======================");
-        System.out.println("Starting quivckbite omni commerce platform");
+        System.out.println("Starting QuickBite Omni-Commerce Platform");
         System.out.println("=================\n");
 
 
         DatabaseConnection db=DatabaseConnection.getInstance();
 
-        db.executeQuery("SELECT * FROM quick_bite_master_schema:");
+        db.executeQuery("SELECT * FROM quickbite_master_schema;");
 
         CustomerDAOImpl customerDAO = new CustomerDAOImpl();
 
         ProductDAOImpl productDAO = new ProductDAOImpl();
         OrderDAOImpl orderDAO = new OrderDAOImpl();
 
+        // Attach both notification examples to the order lifecycle.
         OrderSubject orderSubject = new OrderSubject();
         orderSubject.attach(new EmailNotificationObserver());
         orderSubject.attach(new SMSNotificationObserver());
@@ -125,7 +127,7 @@ public class QuickBiteApplication2 {
         System.out.println("Admin dept:"+admin.getDepartment()+"|Level:"+admin.getAccessLevel());
         System.out.println("Address:"+addr1.getStreet()+","+addr1.getCity()+","+addr1.getState()+"-"+addr1.getZipCode());
 
-        System.out.println("Category cpmare to:"+electronics.compareTo(food));
+        System.out.println("Category compare to:"+electronics.compareTo(food));
         System.out.println("Product lookup by ID:"+productService.getProduct(101).getName());
         System.out.println("All products list size:"+productService.getAllProducts().size());
         System.out.println("category set:"+productService.getCategories());
@@ -167,24 +169,24 @@ public class QuickBiteApplication2 {
             inventoryService.deductStock(101, 5000);
 
         }catch(InsufficientStockException e) {
-            System.out.println("caufght exception:"+e.getMessage());
+            System.out.println("Caught exception:"+e.getMessage());
 
         }
 
         try {
             throw new OrderNotFoundException("Order #999 not found.");
         }catch(OrderNotFoundException e) {
-            System.out.println("caufght exception:"+e.getMessage());
+            System.out.println("Caught exception:"+e.getMessage());
         }
 
         try {
             throw new PaymentFailedException("Payment Failed simulation.");
         }catch(PaymentFailedException e) {
-            System.out.println("caufght exception:"+e.getMessage());
+            System.out.println("Caught exception:"+e.getMessage());
         }
 
         System.out.println("\n======================");
-        System.out.println("All class methods and fuctionalities fully verified");
+        System.out.println("All class methods and functionalities verified");
         System.out.println("=================");
 
     }

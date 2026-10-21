@@ -36,9 +36,10 @@ public class ReportService {
     public Product getTopSellingProduct() {
         Map<Product, Integer> salesMap = new HashMap<>();
 
+        // Aggregate quantities across all orders before selecting the maximum with the heap.
         for (Order o : orderDAO.findAll()) {
             for (OrderItem item : o.getItems()) {
-
+                salesMap.merge(item.getProduct(), item.getQuantity(), Integer::sum);
             }
         }
 

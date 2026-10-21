@@ -23,21 +23,23 @@ import com.quickbite.service.ProductService;
 import com.quickbite.service.ReportService;
 import com.quickbite.singleton.DatabaseConnection;
 
-public class QuickBiteApplication {
+public class Main {
 
+    // Runs the core catalog, customer, checkout, notification, and reporting demonstration.
     public static void main(String[] args) {
         System.out.println("================================");
         System.out.println("Starting quickbite Omni commerce Platform");
         System.out.println("================================\n");
 
         DatabaseConnection db = DatabaseConnection.getInstance();
-        db.executeQuery("SELECT*FROM quickbite_master_schema;");
+        db.executeQuery("SELECT * FROM quickbite_master_schema;");
 
         CustomerDAOImpl customerDAO = new CustomerDAOImpl();
 
         ProductDAOImpl productDAO = new ProductDAOImpl();
         OrderDAOImpl orderDAO = new OrderDAOImpl();
 
+        // Observers are notified by the order service after a successful checkout.
         OrderSubject orderSubject = new OrderSubject();
         orderSubject.attach(new EmailNotificationObserver());
         orderSubject.attach(new SMSNotificationObserver());

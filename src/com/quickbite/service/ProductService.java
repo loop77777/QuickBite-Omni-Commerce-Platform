@@ -40,7 +40,7 @@ public class ProductService {
     public Product getProduct(int id) {
         Product p = productDAO.findById(id);
         if (p == null)
-            throw new ProductNotFoundException("Product #" + id + "not found.");
+            throw new ProductNotFoundException("Product #" + id + " not found.");
         return p;
     }
 
